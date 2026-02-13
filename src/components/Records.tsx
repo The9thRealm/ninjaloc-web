@@ -40,9 +40,13 @@ export default function Records() {
                 <span className="text-[10px] border border-white/20 px-2 py-1 uppercase tracking-tighter text-bone/40">
                   {release.type}
                 </span>
-                <button className="text-xs font-bold uppercase tracking-[0.2em] text-crimson opacity-0 group-hover:opacity-100 transition-opacity">
+                <a 
+                  href="https://instagram.com/ninjaloc" 
+                  target="_blank"
+                  className="text-xs font-bold uppercase tracking-[0.2em] text-crimson opacity-0 group-hover:opacity-100 transition-opacity"
+                >
                   Listen
-                </button>
+                </a>
               </div>
             </motion.div>
           ))}

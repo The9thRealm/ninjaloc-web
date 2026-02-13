@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -55,9 +56,11 @@ export default function Hero() {
           transition={{ duration: 1, delay: 1.5 }}
           className="pt-10"
         >
-          <button className="px-8 py-3 bg-white text-black font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition-colors duration-500">
-            Enter the Vault
-          </button>
+          <Link href="#records">
+            <button className="px-8 py-3 bg-white text-black font-bold uppercase tracking-widest hover:bg-crimson hover:text-white transition-colors duration-500 cursor-pointer">
+              Enter the Vault
+            </button>
+          </Link>
         </motion.div>
       </div>
 
