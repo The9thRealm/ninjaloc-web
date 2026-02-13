@@ -24,13 +24,18 @@ export default function ArtistPage({ params }: { params: { id: string } }) {
       
       <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
         {/* Header Dossier */}
-        <div className="border-l-2 border-crimson pl-8 mb-12">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-2">
-            {artist.name}
-          </h1>
-          <p className="text-crimson font-mono text-sm uppercase tracking-[0.3em]">
-            {artist.role}
-          </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 border-l-2 border-crimson pl-8">
+          <div>
+            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-2">
+              {artist.name}
+            </h1>
+            <p className="text-crimson font-mono text-sm uppercase tracking-[0.3em]">
+              {artist.role}
+            </p>
+          </div>
+          <Link href="/#roster" className="text-[10px] font-mono uppercase tracking-[0.5em] text-white/20 hover:text-white transition-colors pb-2">
+            [ Return to Manifest ]
+          </Link>
         </div>
 
         {/* Bio / Intel */}
