@@ -1,4 +1,6 @@
 import Hero from "@/components/Hero";
+import Roster from "@/components/Roster";
+import Records from "@/components/Records";
 import { Music, Users, ShieldAlert } from "lucide-react";
 
 export default function Home() {
@@ -6,7 +8,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Hero />
 
-      {/* Featured Sections Preview */}
+      {/* Philosophy / Overview */}
       <section className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
         <FeatureCard 
           icon={<Users size={24} />}
@@ -25,12 +27,24 @@ export default function Home() {
         />
       </section>
 
-      {/* Placeholder for future sections */}
-      <section className="py-24 border-t border-white/5 bg-shadow/30">
-        <div className="text-center space-y-4">
-          <h3 className="text-2xl font-bold tracking-widest uppercase opacity-20">
-            More to emerge soon
+      <Roster />
+      
+      <Records />
+
+      {/* Footer / Manifesto */}
+      <section className="py-32 border-t border-white/5 bg-void">
+        <div className="max-w-4xl mx-auto text-center space-y-8 px-6">
+          <h3 className="text-3xl font-bold tracking-[0.3em] uppercase opacity-80">
+            NinjaLOC
           </h3>
+          <p className="text-bone/30 font-light italic leading-loose">
+            "We are the architects of the unseen. The sound of the shadows. 
+            The collective is the control. The control is none."
+          </p>
+          <div className="pt-12 flex flex-col items-center gap-4">
+            <p className="text-[10px] tracking-[0.5em] uppercase opacity-20">Owned by NinjaLOC Records & BLVCKMVGICK</p>
+            <div className="w-12 h-px bg-crimson opacity-50" />
+          </div>
         </div>
       </section>
     </div>
