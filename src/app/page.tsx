@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import Roster from "@/components/Roster";
 import Records from "@/components/Records";
 import JoinCollective from "@/components/JoinCollective";
+import Transmissions from "@/components/Transmissions";
 import { Music, Users, ShieldAlert } from "lucide-react";
 
 export default function Home() {
@@ -31,6 +32,8 @@ export default function Home() {
       <Roster />
       
       <Records />
+
+      <Transmissions />
 
       <JoinCollective />
 
