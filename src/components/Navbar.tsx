@@ -23,9 +23,6 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8 font-mono text-[10px] uppercase tracking-widest text-bone/40">
             <Link href="#roster" className="hover:text-crimson transition-colors">Roster</Link>
             <Link href="#records" className="hover:text-crimson transition-colors">Vault</Link>
-            <Link href="https://blvckmvgick.com" target="_blank" className="hover:text-crimson transition-colors flex items-center gap-1">
-              Store <ExternalLink size={10} />
-            </Link>
           </div>
 
           <div className="flex items-center gap-4 text-bone/60">

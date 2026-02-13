@@ -45,7 +45,7 @@ export default function Home() {
             The collective is the control. The control is none."
           </p>
           <div className="pt-12 flex flex-col items-center gap-4">
-            <p className="text-[10px] tracking-[0.5em] uppercase opacity-20">Owned by NinjaLOC Records & BLVCKMVGICK</p>
+            <p className="text-[10px] tracking-[0.5em] uppercase opacity-20">Owned by NinjaLOC Records</p>
             <div className="w-12 h-px bg-crimson opacity-50" />
           </div>
         </div>
