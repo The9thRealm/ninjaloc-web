@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,7 +30,8 @@ export default function RootLayout({
       >
         <div className="grain-overlay" />
         <div className="vignette" />
-        <main className="relative z-10">
+        <Navbar />
+        <main className="relative z-10 pt-20">
           {children}
         </main>
       </body>

@@ -3,7 +3,11 @@ export interface Artist {
   name: string;
   role: string;
   bio: string;
-  image?: string;
+  platforms: {
+    spotify?: string;
+    apple?: string;
+    instagram?: string;
+  };
 }
 
 export interface Release {
@@ -12,50 +16,66 @@ export interface Release {
   artist: string;
   year: string;
   type: "Single" | "EP" | "Album";
-  link?: string;
 }
 
 export const artists: Artist[] = [
   {
-    id: "1",
-    name: "NinjaLOC",
-    role: "Founder / Architect",
-    bio: "The phantom behind the manifest. Coordinating the underground from the void.",
+    id: "9loc",
+    name: "9loc",
+    role: "Core Member / Architect",
+    bio: "Driving the foundational sound of the NinjaLOC manifest.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
   },
   {
-    id: "2",
-    name: "Shadow Syndicate",
-    role: "Vocal Collective",
-    bio: "A rotating cast of underground voices delivering raw, unfiltered truth.",
+    id: "doc-vore",
+    name: "Doc Vore",
+    role: "Artist",
+    bio: "Delivering surgical precision in every verse and soundscape.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
   },
   {
-    id: "3",
-    name: "Void Producer",
-    role: "Sound Designer",
-    bio: "Crafting the atmospheric dread that defines the NinjaLOC sound.",
+    id: "doomzday-dkay",
+    name: "Doomzday Dkay",
+    role: "Artist",
+    bio: "The soundtrack to the end of days. Raw underground energy.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
+  },
+  {
+    id: "fsa",
+    name: "FSA: Freakshow Assassins",
+    role: "Collective / Group",
+    bio: "A precision strike force of underground talent. No witnesses.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
+  },
+  {
+    id: "uzi-raks",
+    name: "Uzi Raks",
+    role: "Artist",
+    bio: "High-caliber delivery. Rapid-fire underground truth.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
+  },
+  {
+    id: "ebon-black",
+    name: "Ebon Black",
+    role: "The Exiled King",
+    bio: "Reclaiming the underground throne with dark, majestic flow.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
+  },
+  {
+    id: "blvccclouds",
+    name: "BLVCCCLOUDS",
+    role: "Artist",
+    bio: "Atmospheric dread and lyrical storms. The weather of the void.",
+    platforms: { instagram: "https://www.instagram.com/ninjaloc" }
   }
 ];
 
 export const releases: Release[] = [
   {
     id: "r1",
-    title: "The Underground Manifest",
-    artist: "NinjaLOC",
+    title: "NinjaLOC Records: Vol 1",
+    artist: "Collective",
     year: "2026",
     type: "Album",
-  },
-  {
-    id: "r2",
-    title: "Shadow Work",
-    artist: "Shadow Syndicate",
-    year: "2025",
-    type: "EP",
-  },
-  {
-    id: "r3",
-    title: "Ghost in the Machine",
-    artist: "Void Producer",
-    year: "2025",
-    type: "Single",
   }
 ];

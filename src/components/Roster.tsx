@@ -35,6 +35,16 @@ export default function Roster() {
                 {artist.bio}
               </p>
 
+              <div className="pt-4 flex gap-4 relative z-10">
+                <a 
+                  href={artist.platforms.instagram} 
+                  target="_blank" 
+                  className="text-[10px] uppercase tracking-[0.3em] font-bold text-bone/30 hover:text-crimson transition-colors"
+                >
+                  Listen
+                </a>
+              </div>
+
               {/* Spectral background effect */}
               <div className="absolute inset-0 bg-crimson/0 group-hover:bg-crimson/5 transition-colors duration-700 pointer-events-none" />
             </motion.div>
