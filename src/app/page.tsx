@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Roster from "@/components/Roster";
 import Records from "@/components/Records";
+import JoinCollective from "@/components/JoinCollective";
 import { Music, Users, ShieldAlert } from "lucide-react";
 
 export default function Home() {
@@ -30,6 +31,8 @@ export default function Home() {
       <Roster />
       
       <Records />
+
+      <JoinCollective />
 
       {/* Footer / Manifesto */}
       <section className="py-32 border-t border-white/5 bg-void">
