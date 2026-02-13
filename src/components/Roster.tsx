@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { artists } from "@/data/collective";
+import Link from "next/link";
 
 export default function Roster() {
   return (
@@ -23,9 +24,11 @@ export default function Roster() {
               className="bg-void p-10 space-y-6 group relative overflow-hidden"
             >
               <div className="space-y-2 relative z-10">
-                <h3 className="text-2xl font-bold tracking-tight group-hover:text-crimson transition-colors duration-500">
-                  {artist.name}
-                </h3>
+                <Link href={`/artist/${artist.id}`}>
+                  <h3 className="text-2xl font-bold tracking-tight group-hover:text-crimson transition-colors duration-500 cursor-pointer">
+                    {artist.name}
+                  </h3>
+                </Link>
                 <p className="text-crimson/80 font-mono text-xs uppercase tracking-widest italic">
                   {artist.role}
                 </p>
@@ -36,13 +39,12 @@ export default function Roster() {
               </p>
 
               <div className="pt-4 flex gap-4 relative z-10">
-                <a 
-                  href={artist.platforms.instagram} 
-                  target="_blank" 
+                <Link 
+                  href={`/artist/${artist.id}`}
                   className="text-[10px] uppercase tracking-[0.3em] font-bold text-bone/30 hover:text-crimson transition-colors"
                 >
-                  Listen
-                </a>
+                  View Dossier
+                </Link>
               </div>
 
               {/* Spectral background effect */}
