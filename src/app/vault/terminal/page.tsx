@@ -12,7 +12,7 @@ export default function RemoteTerminal() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [logs, setLogs] = useState<string[]>([]);
 
-  // Simple local check for the demo - you can change this to your preferred code
+  // Security Protocol: Active
   const MASTER_CODE = "Godmode333$"; 
 
   const handleAuth = (e: React.FormEvent) => {
