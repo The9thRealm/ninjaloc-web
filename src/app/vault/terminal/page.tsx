@@ -29,16 +29,27 @@ export default function RemoteTerminal() {
 
   const sendCommand = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!command || !bridgeUrl) return;
+    const targetUrl = bridgeUrl || localStorage.getItem("ninjaloc_bridge_url");
+    
+    if (!command) return;
+    if (!targetUrl) {
+      setLogs(prev => ["✕ Error: Bridge URL is required. Please enter your ngrok URL.", ...prev]);
+      return;
+    }
 
     setStatus("sending");
-    setLogs(prev => [`> ${command}`, ...prev]);
+    const currentCommand = command;
+    setCommand(""); // Clear immediately for UX
+    setLogs(prev => [`> ${currentCommand}`, ...prev]);
 
     try {
-      const response = await fetch(`${bridgeUrl}/command`, {
+      // Ensure we have a clean URL
+      const cleanUrl = targetUrl.replace(/\/$/, ""); 
+      
+      const response = await fetch(`${cleanUrl}/command`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ command }),
+        body: JSON.stringify({ command: currentCommand }),
       });
 
       const data = await response.json();
@@ -46,22 +57,21 @@ export default function RemoteTerminal() {
       if (response.ok) {
         setStatus("success");
         if (data.response) {
-          // If the response is a string representation of a list/object, we try to make it look clean
           const cleanResponse = typeof data.response === 'string' 
             ? data.response 
             : JSON.stringify(data.response, null, 2);
           
           setLogs(prev => [cleanResponse, ...prev]);
-        } else {
-          setLogs(prev => ["✓ Command executed (no output)", ...prev]);
         }
-        setCommand("");
       } else {
-        throw new Error(data.message || "Failed to transmit");
+        throw new Error(data.message || "Bridge error");
       }
     } catch (err) {
       setStatus("error");
-      setLogs(prev => ["✕ Transmission failure. Check bridge/ngrok URL.", ...prev]);
+      setLogs(prev => [`✕ Transmission failure: ${err instanceof Error ? err.message : "Network error"}. Ensure ngrok is HTTPS.`, ...prev]);
+      setCommand(currentCommand); // Restore command on failure
+    } finally {
+      setStatus("idle");
     }
   };
 
@@ -115,14 +125,22 @@ export default function RemoteTerminal() {
             <p className="text-[10px] opacity-60 uppercase tracking-widest mt-1">Status: Encrypted Tunnel Active</p>
           </div>
           <div className="text-right space-y-2">
-            <label className="text-[10px] block opacity-60 uppercase">Bridge Endpoint (Ngrok URL)</label>
-            <input 
-              type="text" 
-              value={bridgeUrl}
-              onChange={(e) => saveUrl(e.target.value)}
-              placeholder="https://your-id.ngrok-free.app"
-              className="bg-black border border-[#39ff14]/30 px-3 py-1 text-[#39ff14] text-xs w-64 focus:border-[#39ff14] outline-none placeholder:opacity-20"
-            />
+            <label className="text-[10px] block opacity-60 uppercase">Bridge Endpoint (Ngrok HTTPS)</label>
+            <div className="flex gap-2">
+              <input 
+                type="text" 
+                value={bridgeUrl}
+                onChange={(e) => setBridgeUrl(e.target.value)}
+                placeholder="https://xxxx.ngrok-free.app"
+                className="bg-black border border-[#39ff14]/30 px-3 py-1 text-[#39ff14] text-xs w-64 focus:border-[#39ff14] outline-none placeholder:opacity-20"
+              />
+              <button 
+                onClick={() => saveUrl(bridgeUrl)}
+                className="text-[10px] border border-[#39ff14]/50 px-2 py-1 hover:bg-[#39ff14] hover:text-black transition-colors"
+              >
+                SET
+              </button>
+            </div>
           </div>
         </div>
 
