@@ -174,20 +174,20 @@ export default function RemoteTerminal() {
             <p className="text-[10px] opacity-60 uppercase tracking-widest mt-1">Status: Encrypted Tunnel Active</p>
           </div>
           <div className="text-right space-y-2">
-            <label className="text-[10px] block opacity-60 uppercase">Bridge Endpoint (Ngrok HTTPS)</label>
+            <label className="text-[10px] block opacity-60 uppercase">Uplink Endpoint (Cloudflare)</label>
             <div className="flex gap-2">
               <input 
                 type="text" 
                 value={bridgeUrl}
                 onChange={(e) => setBridgeUrl(e.target.value)}
-                placeholder="https://xxxx.ngrok-free.app"
+                placeholder="https://ninjaloc-uplink.cbtda.win"
                 className="bg-black border border-[#39ff14]/30 px-3 py-1 text-[#39ff14] text-xs w-64 focus:border-[#39ff14] outline-none placeholder:opacity-20"
               />
               <button 
                 onClick={() => saveUrl(bridgeUrl)}
                 className="text-[10px] border border-[#39ff14]/50 px-2 py-1 hover:bg-[#39ff14] hover:text-black transition-colors"
               >
-                SET
+                UPDATE
               </button>
             </div>
           </div>
@@ -284,7 +284,7 @@ export default function RemoteTerminal() {
               </p>
             </div>
             <div className="text-center">
-              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.6</span>
+              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.7</span>
             </div>
           </div>
         </div>
