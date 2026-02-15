@@ -41,12 +41,23 @@ export default function RemoteTerminal() {
         body: JSON.stringify({ command }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setStatus("success");
-        setLogs(prev => ["✓ Command transmitted successfully", ...prev]);
+        if (data.response) {
+          // If the response is a string representation of a list/object, we try to make it look clean
+          const cleanResponse = typeof data.response === 'string' 
+            ? data.response 
+            : JSON.stringify(data.response, null, 2);
+          
+          setLogs(prev => [cleanResponse, ...prev]);
+        } else {
+          setLogs(prev => ["✓ Command executed (no output)", ...prev]);
+        }
         setCommand("");
       } else {
-        throw new Error("Failed to transmit");
+        throw new Error(data.message || "Failed to transmit");
       }
     } catch (err) {
       setStatus("error");
@@ -133,14 +144,22 @@ export default function RemoteTerminal() {
               </button>
             </form>
 
-            <div className="border border-[#39ff14]/20 bg-black/50 p-6 h-96 overflow-y-auto space-y-3 custom-scrollbar shadow-[0_0_15px_rgba(57,255,20,0.05)]">
+            <div className="border border-[#39ff14]/20 bg-black/50 p-6 h-96 overflow-y-auto space-y-4 custom-scrollbar shadow-[0_0_15px_rgba(57,255,20,0.05)]">
               <AnimatePresence initial={false}>
                 {logs.map((log, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className={`text-xs ${log.startsWith('>') ? 'text-[#39ff14]/80 font-bold' : log.startsWith('✓') ? 'text-green-400' : 'text-[#39ff14]'}`}
+                    className={`text-xs whitespace-pre-wrap ${
+                      log.startsWith('>') 
+                        ? 'text-[#39ff14]/60 font-mono italic' 
+                        : log.startsWith('✓') 
+                        ? 'text-green-400' 
+                        : log.startsWith('✕')
+                        ? 'text-red-500'
+                        : 'text-[#39ff14] border-l-2 border-[#39ff14]/30 pl-3 py-1'
+                    }`}
                   >
                     {log}
                   </motion.div>
