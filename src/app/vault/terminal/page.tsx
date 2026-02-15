@@ -9,6 +9,7 @@ export default function RemoteTerminal() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [command, setCommand] = useState("");
   const [bridgeUrl, setBridgeUrl] = useState("");
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
     const savedUrl = localStorage.getItem("ninjaloc_bridge_url");
@@ -121,6 +122,8 @@ export default function RemoteTerminal() {
     );
   }
 
+  const [showVideo, setShowVideo] = useState(false);
+
   return (
     <div className="min-h-screen bg-black text-[#39ff14] font-mono p-4 md:p-12 selection:bg-[#39ff14] selection:text-black">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -150,6 +153,35 @@ export default function RemoteTerminal() {
             </div>
           </div>
         </div>
+
+        {/* Video Feed Section */}
+        <div className="flex justify-end">
+          <button 
+            onClick={() => setShowVideo(!showVideo)}
+            className={`text-xs uppercase tracking-widest px-4 py-2 border ${showVideo ? 'bg-[#39ff14] text-black border-[#39ff14]' : 'text-[#39ff14] border-[#39ff14]/30'} transition-all`}
+          >
+            {showVideo ? "DISABLE VISUAL FEED" : "ENABLE VISUAL FEED"}
+          </button>
+        </div>
+
+        {showVideo && bridgeUrl && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="border border-[#39ff14]/20 bg-black/50 overflow-hidden relative aspect-video"
+          >
+            {/* We use the /video_feed route on the bridge */}
+            <img 
+              src={`${bridgeUrl.replace(/\/$/, "")}/video_feed`} 
+              alt="Live Feed"
+              className="w-full h-full object-contain opacity-80 mix-blend-screen"
+            />
+            <div className="absolute top-2 right-2 text-[10px] bg-black/80 px-2 py-1 text-red-500 animate-pulse font-bold uppercase tracking-widest">
+              LIVE TRANSMISSION
+            </div>
+          </motion.div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
