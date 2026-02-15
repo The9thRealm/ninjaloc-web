@@ -4,6 +4,7 @@ import Records from "@/components/Records";
 import JoinCollective from "@/components/JoinCollective";
 import Transmissions from "@/components/Transmissions";
 import { Music, Users, ShieldAlert } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -40,9 +41,14 @@ export default function Home() {
       {/* Footer / Manifesto */}
       <section className="py-32 border-t border-white/5 bg-void">
         <div className="max-w-4xl mx-auto text-center space-y-8 px-6">
-          <h3 className="text-3xl font-bold tracking-[0.3em] uppercase opacity-80">
-            NinjaLOC
-          </h3>
+          <div className="relative w-24 h-24 mx-auto mb-8 opacity-80">
+            <Image 
+              src="/logo.png" 
+              alt="NinjaLOC Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
           <p className="text-bone/30 font-light italic leading-loose">
             "We are the architects of the unseen. The sound of the shadows. 
             The collective is the control. The control is none."

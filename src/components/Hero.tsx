@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -10,13 +11,19 @@ export default function Hero() {
       {/* Background Element */}
       <motion.div 
         initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 0.15, scale: 1 }}
+        animate={{ opacity: 0.1, scale: 1 }}
         transition={{ duration: 2.5, ease: "easeOut" }}
-        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none p-20"
       >
-        <h1 className="text-[20vw] font-black tracking-tighter text-white opacity-20 select-none">
-          NINJALOC
-        </h1>
+        <div className="relative w-full h-full max-w-4xl">
+          <Image 
+            src="/logo.png" 
+            alt="NinjaLOC Watermark" 
+            fill
+            className="object-contain opacity-20 grayscale"
+            priority
+          />
+        </div>
       </motion.div>
 
       <div className="relative z-10 text-center space-y-6 max-w-4xl">
