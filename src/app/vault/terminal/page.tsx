@@ -276,6 +276,9 @@ export default function RemoteTerminal() {
                 Ensure the bridge server is running on the target machine.
               </p>
             </div>
+            <div className="text-center">
+              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.4</span>
+            </div>
           </div>
         </div>
       </div>
