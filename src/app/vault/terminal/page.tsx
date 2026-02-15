@@ -9,6 +9,11 @@ export default function RemoteTerminal() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [command, setCommand] = useState("");
   const [bridgeUrl, setBridgeUrl] = useState("");
+
+  useEffect(() => {
+    const savedUrl = localStorage.getItem("ninjaloc_bridge_url");
+    if (savedUrl) setBridgeUrl(savedUrl);
+  }, []);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [logs, setLogs] = useState<string[]>([]);
 
@@ -19,8 +24,10 @@ export default function RemoteTerminal() {
     e.preventDefault();
     if (password === MASTER_CODE) {
       setIsAuthorized(true);
-      const savedUrl = localStorage.getItem("ninjaloc_bridge_url");
-      if (savedUrl) setBridgeUrl(savedUrl);
+      if (!bridgeUrl) {
+        const savedUrl = localStorage.getItem("ninjaloc_bridge_url");
+        if (savedUrl) setBridgeUrl(savedUrl);
+      }
     } else {
       alert("ACCESS DENIED");
       setPassword("");
