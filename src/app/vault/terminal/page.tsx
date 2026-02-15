@@ -45,7 +45,7 @@ export default function RemoteTerminal() {
   const [password, setPassword] = useState("");
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [command, setCommand] = useState("");
-  const [bridgeUrl, setBridgeUrl] = useState("https://ninjaloc-vault.loca.lt");
+  const [bridgeUrl, setBridgeUrl] = useState("https://ninjaloc-uplink.cbtda.win");
   const [showVideo, setShowVideo] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [logs, setLogs] = useState<string[]>([]);
@@ -284,7 +284,7 @@ export default function RemoteTerminal() {
               </p>
             </div>
             <div className="text-center">
-              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.5</span>
+              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.6</span>
             </div>
           </div>
         </div>
