@@ -7,30 +7,37 @@ import { Shield, Terminal, Send, Lock } from "lucide-react";
 function SecureVideoStream({ url }: { url: string }) {
   const [imgSrc, setImgSrc] = useState<string>("");
   const [error, setError] = useState(false);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     if (!url) return;
     const cleanUrl = url.replace(/\/$/, "");
-    // Adding query params often helps bypass simple caching or strict checks on some tunnels
-    setImgSrc(`${cleanUrl}/video_feed?bypass=true&t=${Date.now()}`);
-  }, [url]);
-
-  if (error) {
-    return (
-      <div className="w-full h-full flex items-center justify-center text-xs text-crimson p-4 border border-crimson/30 animate-pulse">
-        SIGNAL LOST / RECONNECTING...
-      </div>
-    );
-  }
+    setImgSrc(`${cleanUrl}/video_feed?t=${Date.now()}`);
+    setError(false);
+  }, [url, key]);
 
   return (
-    <img 
-      src={imgSrc} 
-      onError={() => setError(true)}
-      alt="Live Feed"
-      className="w-full h-full object-contain opacity-80 mix-blend-screen"
-      crossOrigin="anonymous"
-    />
+    <div className="relative w-full h-full bg-black flex items-center justify-center">
+      {error ? (
+        <div className="text-center space-y-4">
+          <p className="text-xs text-crimson animate-pulse">SIGNAL LOST</p>
+          <button 
+            onClick={() => setKey(k => k + 1)}
+            className="text-[10px] border border-[#39ff14]/30 px-3 py-1 hover:bg-[#39ff14] hover:text-black"
+          >
+            RE-ESTABLISH UPLINK
+          </button>
+        </div>
+      ) : (
+        <img 
+          src={imgSrc} 
+          onError={() => setError(true)}
+          alt="Live Feed"
+          className="w-full h-full object-contain opacity-80 mix-blend-screen"
+          crossOrigin="anonymous"
+        />
+      )}
+    </div>
   );
 }
 
@@ -277,7 +284,7 @@ export default function RemoteTerminal() {
               </p>
             </div>
             <div className="text-center">
-              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.4</span>
+              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.5</span>
             </div>
           </div>
         </div>
