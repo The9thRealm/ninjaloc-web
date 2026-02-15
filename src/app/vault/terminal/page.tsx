@@ -8,7 +8,7 @@ export default function RemoteTerminal() {
   const [password, setPassword] = useState("");
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [command, setCommand] = useState("");
-  const [bridgeUrl, setBridgeUrl] = useState("");
+  const [bridgeUrl, setBridgeUrl] = useState("https://ninjaloc-vault.loca.lt");
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
