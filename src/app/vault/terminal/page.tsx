@@ -4,19 +4,49 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Terminal, Send, Lock } from "lucide-react";
 
+function SecureVideoStream({ url }: { url: string }) {
+  const [imgSrc, setImgSrc] = useState<string>("");
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!url) return;
+    const cleanUrl = url.replace(/\/$/, "");
+    // Adding query params often helps bypass simple caching or strict checks on some tunnels
+    setImgSrc(`${cleanUrl}/video_feed?bypass=true&t=${Date.now()}`);
+  }, [url]);
+
+  if (error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-xs text-crimson p-4 border border-crimson/30 animate-pulse">
+        SIGNAL LOST / RECONNECTING...
+      </div>
+    );
+  }
+
+  return (
+    <img 
+      src={imgSrc} 
+      onError={() => setError(true)}
+      alt="Live Feed"
+      className="w-full h-full object-contain opacity-80 mix-blend-screen"
+      crossOrigin="anonymous"
+    />
+  );
+}
+
 export default function RemoteTerminal() {
   const [password, setPassword] = useState("");
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [command, setCommand] = useState("");
   const [bridgeUrl, setBridgeUrl] = useState("https://ninjaloc-vault.loca.lt");
   const [showVideo, setShowVideo] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [logs, setLogs] = useState<string[]>([]);
 
   useEffect(() => {
     const savedUrl = localStorage.getItem("ninjaloc_bridge_url");
     if (savedUrl) setBridgeUrl(savedUrl);
   }, []);
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-  const [logs, setLogs] = useState<string[]>([]);
 
   // Security Protocol: Active
   const MASTER_CODE = "Godmode333$"; 
@@ -56,7 +86,11 @@ export default function RemoteTerminal() {
       
       const response = await fetch(`${cleanUrl}/command`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Bypass-Tunnel-Reminder": "true",
+          "ngrok-skip-browser-warning": "true"
+        },
         body: JSON.stringify({ command: currentCommand }),
       });
 
@@ -122,8 +156,6 @@ export default function RemoteTerminal() {
     );
   }
 
-  const [showVideo, setShowVideo] = useState(false);
-
   return (
     <div className="min-h-screen bg-black text-[#39ff14] font-mono p-4 md:p-12 selection:bg-[#39ff14] selection:text-black">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -171,12 +203,7 @@ export default function RemoteTerminal() {
             exit={{ opacity: 0, height: 0 }}
             className="border border-[#39ff14]/20 bg-black/50 overflow-hidden relative aspect-video"
           >
-            {/* We use the /video_feed route on the bridge */}
-            <img 
-              src={`${bridgeUrl.replace(/\/$/, "")}/video_feed`} 
-              alt="Live Feed"
-              className="w-full h-full object-contain opacity-80 mix-blend-screen"
-            />
+            <SecureVideoStream url={bridgeUrl} />
             <div className="absolute top-2 right-2 text-[10px] bg-black/80 px-2 py-1 text-red-500 animate-pulse font-bold uppercase tracking-widest">
               LIVE TRANSMISSION
             </div>
