@@ -124,7 +124,7 @@ export default function RemoteTerminal() {
       }
     } catch (err) {
       setStatus("error");
-      setLogs(prev => [`✕ Transmission failure: ${err instanceof Error ? err.message : "Network error"}. Ensure ngrok is HTTPS.`, ...prev]);
+      setLogs(prev => [`✕ Transmission failure: ${err instanceof Error ? err.message : "Network error"}. Ensure Cloudflare Tunnel is active.`, ...prev]);
       setCommand(currentCommand); // Restore command on failure
     } finally {
       setStatus("idle");
@@ -291,7 +291,7 @@ export default function RemoteTerminal() {
               </p>
             </div>
             <div className="text-center">
-              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.8</span>
+              <span className="text-[8px] opacity-20 uppercase tracking-[0.5em]">Uplink Version: 1.0.9</span>
             </div>
           </div>
         </div>
