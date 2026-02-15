@@ -94,23 +94,23 @@ export default function RemoteTerminal() {
   }
 
   return (
-    <div className="min-h-screen bg-void text-bone font-mono p-4 md:p-12">
+    <div className="min-h-screen bg-black text-[#39ff14] font-mono p-4 md:p-12 selection:bg-[#39ff14] selection:text-black">
       <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-end border-b border-white/5 pb-6">
+        <div className="flex justify-between items-end border-b border-[#39ff14]/20 pb-6">
           <div>
             <h1 className="text-2xl font-bold tracking-tighter uppercase flex items-center gap-3">
-              <Terminal className="text-crimson" /> Remote Uplink
+              <Terminal className="text-[#39ff14]" /> Remote Uplink
             </h1>
-            <p className="text-[10px] opacity-40 uppercase tracking-widest mt-1">Status: Encrypted Tunnel Active</p>
+            <p className="text-[10px] opacity-60 uppercase tracking-widest mt-1">Status: Encrypted Tunnel Active</p>
           </div>
           <div className="text-right space-y-2">
-            <label className="text-[10px] block opacity-40 uppercase">Bridge Endpoint (Ngrok URL)</label>
+            <label className="text-[10px] block opacity-60 uppercase">Bridge Endpoint (Ngrok URL)</label>
             <input 
               type="text" 
               value={bridgeUrl}
               onChange={(e) => saveUrl(e.target.value)}
               placeholder="https://your-id.ngrok-free.app"
-              className="bg-black/50 border border-white/10 px-3 py-1 text-xs w-64 focus:border-crimson outline-none"
+              className="bg-black border border-[#39ff14]/30 px-3 py-1 text-[#39ff14] text-xs w-64 focus:border-[#39ff14] outline-none placeholder:opacity-20"
             />
           </div>
         </div>
@@ -123,50 +123,52 @@ export default function RemoteTerminal() {
                 value={command}
                 onChange={(e) => setCommand(e.target.value)}
                 placeholder="Awaiting instruction..."
-                className="w-full bg-black/40 border border-white/10 p-6 pr-20 text-lg focus:outline-none focus:border-crimson/50 transition-all placeholder:opacity-20"
+                className="w-full bg-black border border-[#39ff14]/30 p-6 pr-20 text-lg focus:outline-none focus:border-[#39ff14] transition-all placeholder:opacity-20 text-[#39ff14]"
               />
               <button 
                 disabled={status === "sending"}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-crimson hover:scale-110 transition-transform disabled:opacity-20"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-[#39ff14] hover:scale-110 transition-transform disabled:opacity-20"
               >
                 <Send size={24} />
               </button>
             </form>
 
-            <div className="horror-border bg-black/20 p-6 h-96 overflow-y-auto space-y-3 custom-scrollbar">
+            <div className="border border-[#39ff14]/20 bg-black/50 p-6 h-96 overflow-y-auto space-y-3 custom-scrollbar shadow-[0_0_15px_rgba(57,255,20,0.05)]">
               <AnimatePresence initial={false}>
                 {logs.map((log, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className={`text-xs ${log.startsWith('>') ? 'text-bone/60' : log.startsWith('✓') ? 'text-green-500' : 'text-crimson'}`}
+                    className={`text-xs ${log.startsWith('>') ? 'text-[#39ff14]/80 font-bold' : log.startsWith('✓') ? 'text-green-400' : 'text-[#39ff14]'}`}
                   >
                     {log}
                   </motion.div>
                 ))}
               </AnimatePresence>
-              {logs.length === 0 && <p className="text-bone/10 text-center mt-32 italic">No transmission history</p>}
+              {logs.length === 0 && <p className="text-[#39ff14]/20 text-center mt-32 italic">No transmission history</p>}
             </div>
           </div>
 
           <div className="space-y-6">
-            <div className="p-6 border border-white/5 rounded-lg space-y-4">
-              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">System Overview</h3>
+            <div className="p-6 border border-[#39ff14]/20 rounded-lg space-y-4 shadow-[0_0_10px_rgba(57,255,20,0.02)]">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">System Overview</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="opacity-40 uppercase">Environment</span>
-                  <span className="text-crimson">Tesla_Uplink_v1</span>
+                  <span className="opacity-60 uppercase">Environment</span>
+                  <span className="text-[#39ff14] font-bold">Tesla_Uplink_v1</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="opacity-40 uppercase">Bridge</span>
-                  <span className={bridgeUrl ? "text-green-500" : "text-crimson"}>{bridgeUrl ? "CONFIGURED" : "MISSING"}</span>
+                  <span className="opacity-60 uppercase">Bridge</span>
+                  <span className={bridgeUrl ? "text-green-400" : "text-[#39ff14] animate-pulse font-bold"}>
+                    {bridgeUrl ? "CONNECTED" : "MISSING"}
+                  </span>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 border border-white/5 rounded-lg bg-crimson/5">
-              <p className="text-[10px] leading-relaxed opacity-60">
+            <div className="p-6 border border-[#39ff14]/10 rounded-lg bg-[#39ff14]/5">
+              <p className="text-[10px] leading-relaxed opacity-70">
                 Commands sent here are transmitted via the secure bridge to your local terminal instance. 
                 Ensure the bridge server is running on the target machine.
               </p>
